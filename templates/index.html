@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoya - Portfolio</title>
+    <title>{{ name }} - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -12,9 +12,10 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">Zoya</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav>
-                <a href="#profile">Profile_</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
         </div>
     </header>
@@ -38,15 +39,15 @@
                     <a class="email" href="mailto:yuwono.zoya20@gmail.com" target="_blank">Email</a>
                 </div>
                 <div class="item2">
-                    <h1>Aqila Zoya Yuwono</h1>
+                    <h1>{{ name }}</h1>
                     <p class="nama">
                         Computer Science Student at <br> Universitas Indonesia
                     </p>
-                    <p class="data">
-                        NPM: <strong>2506620293</strong> &middot; Program: <strong>Ilmu Komputer</strong><br>
-                        Currently pursuing Computer Science at UI while diving<br>into creative projects, event management, and research.<br>Powered by curiosity and a drive to build cool things.
+                    <p class="bio">
+                        NPM: <strong>{{ npm }}</strong> &middot; Program: <strong>{{ study_program }}</strong><br>
+                        {{ bio }}
                     </p>
-                    <img src="/static/img/digicamfx-pg2016-2026-09-06T17-38-06.jpg" alt="photo">
+                    <img src="/static/img/digicamfx-pg2016-2026-09-06T17-38-06.jpg" alt="photo of {{ name }}">
                 </div>
                 <div class="item3">
                     <p class="skills">Technical Skills:</p>
@@ -74,7 +75,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Zoya. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
 </body>
