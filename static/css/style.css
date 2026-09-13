@@ -7,6 +7,11 @@
 :root {
     --paper: #ffffff;
     --radius: 4px;
+
+    --ink: #202124;
+    --line: #d1d1d1;
+    --text-muted: #666666;
+    --accent-dark: #333333;
 }
 
 body {
@@ -70,7 +75,7 @@ body {
     white-space: nowrap;
 }
 
-.container {
+.portofolio-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4px;
@@ -324,4 +329,89 @@ body {
 
 body {
     font-family: 'TTNormsPro-Normal', sans-serif;
+<<<<<<< Updated upstream
+=======
+}
+
+.experience-section {
+    padding: 4rem 0;
+}
+
+.section-kicker {
+    color: var(--accent-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.experience-section h1 {
+    margin: 0.4rem 0 1.5rem;
+    font-size: 2rem;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.experience-card {
+    padding: 1.25rem;
+    background-color: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.experience-category {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.experience-card h2 {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.experience-description,
+.empty-state {
+    color: var(--text-muted);
+}
+
+.experience-status {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.project-section {
+    padding: 4rem 0;
+}
+
+.project-section h1 {
+    margin-bottom: 2rem;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.project-card {
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.project-category {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.project-card h2 {
+    margin: 0.5rem 0;
+>>>>>>> Stashed changes
 }

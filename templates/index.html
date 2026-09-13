@@ -12,15 +12,23 @@
 <body>
     <header class="site-header">
         <div class="container">
+<<<<<<< Updated upstream
             <a href="#profile" class="brand">Zoya</a>
             <nav>
                 <a href="#profile">Profile_</a>
+=======
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name2 }}</a>
+            <nav>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_projects' %}">Projects</a>
+>>>>>>> Stashed changes
             </nav>
         </div>
     </header>
 
     <main>
-            <div class="container">
+            <div class="container portofolio-grid">
                 <div class="item1">
                     <h2 class="title1">Education_</h2>
                     <p class="school1">2025 - 2029<br><span class="garis1">Universitas Indonesia</span><br>Faculty of Computer Science</p>
@@ -74,7 +82,11 @@
 
     <footer class="site-footer">
         <div class="container">
+<<<<<<< Updated upstream
             <p>&copy; 2026 Zoya. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+=======
+            <p>&copy; 2026 {{ name2 }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+>>>>>>> Stashed changes
         </div>
     </footer>
 </body>
