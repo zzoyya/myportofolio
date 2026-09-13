@@ -4,79 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ name }} - Portfolio</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
+
     <header class="site-header">
         <div class="container">
-            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
+            <a href="{% url 'main:show_main' %}" class="brand">
+                {{ name2 }}
+            </a>
+
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_projects' %}">Projects</a>
             </nav>
         </div>
     </header>
 
     <main>
-            <div class="container">
-                <div class="item1">
-                    <h2 class="title1">Education_</h2>
-                    <p class="school1">2025 - 2029<br><span class="garis1">Universitas Indonesia</span><br>Faculty of Computer Science</p>
-                    <p class="school2">07.2022 - 05.2025<br><span class="garis2">Pribadi Bilingual Boarding School Depok</span></p>
-                    <h2 class="title2">Experiences_</h2>
-                    <p class="work1">05.2026 - Present<br><span class="garis1">TEDxUI 2027</span><br>Associate of Creative Department managing in stage decoration</p>
-                    <p class="work2">04.2026 - Present<br><span class="garis1">COMPFEST 18</span><br>Associate of Creative Department</p>
-                    <p class="work3">10.2022 - 09.2023<br><span class="garis1">OSIS Pribadi Depok</span><br>Associate of Public Relations Division</p>
-                    <a href="/static/pdf/CV_Zoya.pdf" target="_blank" class="cv-link">
-                        <img src="/static/img/✧-Photoroom.png" alt="pdf" class="pdf-icon">
-                        <span class="text">more about me</span>
-                    </a>
-                    <a class="github" href="https://github.com/zzoyya" target="_blank">GitHub</a>
-                    <a class="linkedin" href="https://www.linkedin.com/in/aqila-zoya-yuwono-162489377/" target="_blank">LinkedIn</a>
-                    <a class="email" href="mailto:yuwono.zoya20@gmail.com" target="_blank">Email</a>
-                </div>
-                <div class="item2">
-                    <h1>{{ name }}</h1>
-                    <p class="nama">
-                        Computer Science Student at <br> Universitas Indonesia
-                    </p>
-                    <p class="bio">
-                        NPM: <strong>{{ npm }}</strong> &middot; Program: <strong>{{ study_program }}</strong><br>
-                        {{ bio }}
-                    </p>
-                    <img src="/static/img/digicamfx-pg2016-2026-09-06T17-38-06.jpg" alt="photo of {{ name }}">
-                </div>
-                <div class="item3">
-                    <p class="skills">Technical Skills:</p>
-                    <div class="gambar-skills">
-                        <div class="list-skill">
-                            <img src="/static/img/Untitled design.png" alt="photo 1">
-                            <p class="project"><strong>Project Management</strong><br>
-                                Skilled in event logistics, manage budgeting, and execution.</p>
-                        </div>
-                        <div class="list-skill">
-                            <img src="/static/img/Untitled design2.png" alt="photo 2">
-                            <p class="scientific"><strong>Scientific Writing</strong><br>
-                            Experienced in drafting research reports and academic analysis.</p>
-                        </div>
-                        <div class="list-skill">
-                            <img src="/static/img/Untitled design3.png" alt="photo 3">
-                            <p class="creative"><strong>Creativity and Innovation</strong><br>
-                            Experienced in stage design and visual execution.</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="container portofolio-grid">
+
+            <div class="item1">
+
+                <h2 class="title1">Education_</h2>
+
+                <p class="school1">
+                    2025 - 2029<br>
+                    <span class="garis1">Universitas Indonesia</span><br>
+                    Faculty of Computer Science
+                </p>
+
+                <p class="school2">
+                    07.2022 - 05.2025<br>
+                    <span class="garis2">
+                        Pribadi Bilingual Boarding School Depok
+                    </span>
+                </p>
+
+                <h2 class="title2">Experiences_</h2>
+
+                <p class="work1">
+                    05.2026 - Present<br>
+                    <span class="garis1">TEDxUI 2027</span><br>
+                    Associate of Creative Department managing in stage decoration
+                </p>
+
+                <p class="work2">
+                    04.2026 - Present<br>
+                    <span class="garis1">COMPFEST 18</span><br>
+                    Associate of Creative Department
+                </p>
+
+                <p class="work3">
+                    10.2022 - 09.2023<br>
+                    <span class="garis1">OSIS Pribadi Depok</span><br>
+                    Associate of Public Relations Division
+                </p>
+
+                <a href="/static/pdf/CV_Zoya.pdf"
+                   target="_blank"
+                   class="cv-link">
+
+                    <img src="/static/img/✧-Photoroom.png"
+                         alt="pdf"
+                         class="pdf-icon">
+
+                    <span class="text">more about me</span>
+                </a>
+
+                <a class="github"
+                   href="https://github.com/zzoyya"
+                   target="_blank">
+                    GitHub
+                </a>
+
+                <a class="linkedin"
+                   href="https://www.linkedin.com/in/aqila-zoya-yuwono-162489377/"
+                   target="_blank">
+                    LinkedIn
+                </a>
+
+                <a class="email"
+                   href="mailto:yuwono.zoya20@gmail.com">
+                    Email
+                </a>
+
             </div>
-        </section>
+
+
+            <div class="item2">
+
+                <h1>{{ name }}</h1>
+
+                <p class="nama">
+                    Computer Science Student at <br>
+                    Universitas Indonesia
+                </p>
+
+                <p class="bio">
+                    NPM: <strong>{{ npm }}</strong>
+                    &middot;
+                    Program: <strong>{{ study_program }}</strong>
+                    <br>
+                    {{ bio }}
+                </p>
+
+                <img src="/static/img/digicamfx-pg2016-2026-09-06T17-38-06.jpg"
+                     alt="photo of {{ name }}">
+
+            </div>
+
+
+            <div class="item3">
+
+                <p class="skills">Technical Skills:</p>
+
+                <div class="gambar-skills">
+
+                    <div class="list-skill">
+                        <img src="/static/img/Untitled design.png"
+                             alt="photo 1">
+
+                        <p class="project">
+                            <strong>Project Management</strong><br>
+                            Skilled in event logistics, manage budgeting,
+                            and execution.
+                        </p>
+                    </div>
+
+
+                    <div class="list-skill">
+                        <img src="/static/img/Untitled design2.png"
+                             alt="photo 2">
+
+                        <p class="scientific">
+                            <strong>Scientific Writing</strong><br>
+                            Experienced in drafting research reports
+                            and academic analysis.
+                        </p>
+                    </div>
+
+
+                    <div class="list-skill">
+                        <img src="/static/img/Untitled design3.png"
+                             alt="photo 3">
+
+                        <p class="creative">
+                            <strong>Creativity and Innovation</strong><br>
+                            Experienced in stage design
+                            and visual execution.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </main>
 
+
     <footer class="site-footer">
+
         <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>
+                &copy; 2026 {{ name2 }}.
+                Fakultas Ilmu Komputer, Universitas Indonesia.
+            </p>
         </div>
+
     </footer>
+
 </body>
 </html>

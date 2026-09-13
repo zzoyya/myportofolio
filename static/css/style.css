@@ -7,41 +7,49 @@
 :root {
     --paper: #ffffff;
     --radius: 4px;
+    --ink: #202124;
+    --line: #d1d1d1;
+    --text-muted: #666666;
+    --accent-dark: #333333;
+}
+
+@font-face {
+    font-family: 'Bright Young Things';
+    src: url('/static/font/Bright Young Things.ttf');
+}
+
+@font-face {
+    font-family: 'TTNormsPro-Normal';
+    src: url('/static/font/TTNormsPro-Normal.ttf');
 }
 
 body {
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'TTNormsPro-Normal', sans-serif;
     color: var(--ink);
     background-color: var(--paper);
     line-height: 1.6;
 }
 
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
+/* =========================
+   HEADER DAN FOOTER
+========================= */
 
 .site-header {
     border-bottom: 1px solid var(--line);
 }
 
-.brand {
-    font-family: 'Bright Young Things', sans-serif;
-}
-
-.site-header nav a {
-    font-family: 'TTNormsPro-Normal', sans-serif;
-}
-
 .site-header .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 1.5rem;
 }
 
 .brand {
+    font-family: 'Bright Young Things', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--ink);
@@ -54,6 +62,7 @@ body {
 }
 
 .site-header nav a {
+    font-family: 'TTNormsPro-Normal', sans-serif;
     color: var(--ink);
     text-decoration: none;
     font-size: 0.95rem;
@@ -66,14 +75,29 @@ body {
     border-top: 1px solid var(--line);
 }
 
+.site-footer .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
 .site-footer p {
     white-space: nowrap;
 }
 
-.container {
+
+/* =========================
+   PROFILE
+========================= */
+
+.portofolio-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4px;
+
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .item {
@@ -143,8 +167,10 @@ body {
     color: black;
     text-decoration: none;
     width: fit-content;
+
     position: absolute;
     top: 620px;
+
     font-size: 19px;
 }
 
@@ -152,6 +178,7 @@ body {
     width: 150px;
     height: 150px;
     object-fit: contain;
+
     position: absolute;
     left: 10px;
 }
@@ -164,6 +191,7 @@ body {
     font-family: 'Bright Young Things', sans-serif;
     font-size: 35px;
     line-height: 0.8;
+
     position: absolute;
     left: 150px;
 }
@@ -172,6 +200,7 @@ body {
     position: absolute;
     top: 435px;
     left: 10px;
+
     color: black;
     text-decoration: none;
 }
@@ -184,6 +213,7 @@ body {
     position: absolute;
     top: 455px;
     left: 10px;
+
     color: black;
     text-decoration: none;
 }
@@ -196,6 +226,7 @@ body {
     position: absolute;
     top: 475px;
     left: 10px;
+
     color: black;
     text-decoration: none;
 }
@@ -203,6 +234,11 @@ body {
 .email:hover {
     text-decoration: underline;
 }
+
+
+/* =========================
+   PROFILE BAGIAN KANAN
+========================= */
 
 .item2 {
     background-color: #E3E3E3;
@@ -213,14 +249,12 @@ body {
     background-image: url("/static/img/overlay.png");
     background-size: cover;
     background-position: center;
-    height: 500px;
 }
 
 .item2::before {
     content: "";
 
     position: absolute;
-
     top: 0;
     left: 0;
 
@@ -230,7 +264,8 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.item2 h1, .item2 p {
+.item2 h1,
+.item2 p {
     position: relative;
     z-index: 1;
 }
@@ -239,6 +274,7 @@ body {
     position: absolute;
     top: 75px;
     left: 10px;
+
     z-index: 1;
     font-family: 'Bright Young Things', sans-serif;
 }
@@ -246,9 +282,10 @@ body {
 .item2 img {
     width: 395px;
     height: 340px;
+
     object-fit: cover;
     object-position: center 30%;
-    
+
     position: absolute;
     top: 80px;
     left: 100px;
@@ -258,6 +295,7 @@ body {
     position: absolute;
     top: 123px;
     left: 15px;
+
     z-index: 1;
     line-height: 1;
 }
@@ -266,13 +304,20 @@ body {
     position: absolute;
     top: 395px;
     left: 10px;
+
     z-index: 1;
     line-height: 1;
 }
 
+
+/* =========================
+   SKILLS
+========================= */
+
 .item3 {
     background-color: #E3E3E3;
     height: 200px;
+
     display: flex;
     flex-direction: column;
 }
@@ -296,45 +341,37 @@ body {
 .list-skill img {
     width: 195px;
     height: 100px;
+
     object-fit: cover;
     display: block;
 }
 
-.project {
-   line-height: 1; 
-}
-
-.scientific {
-    line-height: 1;
-}
-
+.project,
+.scientific,
 .creative {
     line-height: 1;
 }
 
-@font-face {
-    font-family: 'Bright Young Things';
-    src: url('/static/font/Bright Young Things.ttf');
-}
 
-@font-face {
-    font-family: 'TTNormsPro-Normal';
-    src: url('/static/font/TTNormsPro-Normal.ttf');
-}
-
-body {
-    font-family: 'TTNormsPro-Normal', sans-serif;
-}
+/* =========================
+   EXPERIENCE
+========================= */
 
 .experience-section {
     padding: 4rem 0;
-    border-top: 1px solid var(--line);
+}
+
+.experience-section .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .section-kicker {
     color: var(--accent-dark);
     font-size: 0.8rem;
     font-weight: 700;
+
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -346,21 +383,27 @@ body {
 
 .experience-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
     gap: 1rem;
 }
 
 .experience-card {
     padding: 1.25rem;
     background-color: #fff;
+
     border: 1px solid var(--line);
     border-radius: var(--radius);
 }
 
 .experience-category {
     color: var(--accent-dark);
+
     font-size: 0.75rem;
     font-weight: 700;
+
     text-transform: uppercase;
 }
 
@@ -376,6 +419,51 @@ body {
 
 .experience-status {
     margin-top: 1rem;
+
     font-size: 0.85rem;
     font-weight: 600;
+}
+
+
+/* =========================
+   PROJECTS
+========================= */
+
+.project-section {
+    padding: 4rem 0;
+}
+
+.project-section .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.project-section h1 {
+    margin-bottom: 2rem;
+}
+
+.project-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 1rem;
+}
+
+.project-card {
+    padding: 1.25rem;
+
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.project-category {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.project-card h2 {
+    margin: 0.5rem 0;
 }
