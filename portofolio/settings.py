@@ -30,6 +30,7 @@ SECRET_KEY = "django-insecure-77h2&$hx8&z0^b&f@g-celi!l1e+n2w2jzz@&=gq-2e^w)98e5
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "aqila-zoya-myportofolio.pws.cs.ui.ac.id"]
+CSRF_TRUSTED_ORIGINS = ["https://aqila-zoya-myportofolio.pws.cs.ui.ac.id"]
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 
 
@@ -60,9 +61,9 @@ ROOT_URLCONF = "portofolio.urls"
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
-        "APP_DIRS": True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
