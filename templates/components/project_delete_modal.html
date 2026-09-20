@@ -1,11 +1,11 @@
 <p class="experience-status">
     <button type="button"
-            class="button button-danger"
-            popovertarget="delete-project-{{ project.id }}"
-            aria-label="Hapus {{ project.title }}"
-            title="Hapus proyek">
-        Hapus Proyek
-    </button>
+        class="button button-secondary"
+        popovertarget="delete-project-{{ project.id }}"
+        aria-label="Hapus {{ project.title }}"
+        title="Hapus proyek">
+    Hapus Project
+</button>
 </p>
 
 <div id="delete-project-{{ project.id }}"
@@ -33,7 +33,7 @@
         </button>
 
         <h2 id="delete-project-title-{{ project.id }}">
-            Hapus Projek?
+            Hapus Project?
         </h2>
 
         <p>
@@ -56,9 +56,9 @@
                 {% csrf_token %}
 
                 <button type="submit"
-                        class="button button-danger">
-                    Ya, Hapus
-                </button>
+        class="button button-secondary">
+    Ya, Hapus
+</button>
 
             </form>
 

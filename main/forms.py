@@ -1,6 +1,7 @@
 from django.forms import ModelForm, TextInput, Textarea, URLInput
+from django import forms
 
-from main.models import Project
+from main.models import Project, Education
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -48,5 +49,25 @@ class ProjectForm(ModelForm):
                 attrs={
                     "placeholder": "https://drive.google.com/thumbnail?id=...&sz=w1000",
                 }
+            ),
+        }
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = [
+            "institution",
+            "degree",
+            "description",
+            "started_at",
+            "ended_at",
+        ]
+
+        widgets = {
+            "started_at": forms.DateInput(
+                attrs={"type": "date"}
+            ),
+            "ended_at": forms.DateInput(
+                attrs={"type": "date"}
             ),
         }

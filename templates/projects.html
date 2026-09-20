@@ -28,24 +28,44 @@
                 </form>
                 <div class="experience-grid project-grid">
                     {% for project in project_list %}
-                        <article class="experience-card">
+                    <article class="experience-card">
+
+                        <div class="file-tab">
+                            {{ project.tech_stack }}
+                        </div>
+                    
+                        <div class="file-content">
+                    
                             {% if project.project_image_url %}
                                 <img src="{{ project.project_image_url }}"
                                      alt="Gambar {{ project.title }}"
                                      class="project-image">
                             {% endif %}
+                    
                             <h2>{{ project.title }}</h2>
-                            <span class="experience-category">{{ project.tech_stack }}</span>
-                            <p class="experience-description">{{ project.description }}</p>
+                    
+                            <p class="experience-description">
+                                {{ project.description }}
+                            </p>
+                    
                             <div class="project-card-actions">
                                 <div class="project-actions">
+                    
                                     {% if project.project_url %}
-                                        <a href="{{ project.project_url }}" class="button">Lihat Project</a>
+                                        <a href="{{ project.project_url }}"
+                                           class="button">
+                                            Lihat Project
+                                        </a>
                                     {% endif %}
+                    
                                     {% include "components/project_delete_modal.html" with project=project %}
+                    
                                 </div>
                             </div>
-                        </article>
+                    
+                        </div>
+                    
+                    </article>
                     {% empty %}
                         {% if title_query %}
                             <p class="empty-state">Tidak ada proyek dengan nama tersebut.</p>
