@@ -199,8 +199,6 @@ body {
 
 
 
-
-
 .item2 {
     background-color: #E3E3E3;
     height: 500px;
@@ -272,7 +270,6 @@ body {
 
 
 
-
 .item3 {
     background-color: #E3E3E3;
     height: 201px;
@@ -312,8 +309,20 @@ body {
 }
 
 
+
 .experience-section {
     padding: 0.03rem 0;
+}
+
+   .experience-section .container {
+    position: relative;
+    max-width: 913px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    background-color: #E3E3E3;
+
+    overflow: hidden;
 }
 
 .experience-section .container > * {
@@ -410,7 +419,6 @@ body {
     color: var(--text-muted);
 }
 
-
 .project-section {
     padding: 4rem 0;
 }
@@ -430,6 +438,8 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
 }
+
+
 
 .project-form {
     width: 100%;
@@ -503,6 +513,7 @@ body {
     margin: 0 auto;
 }
 
+
    .project-header {
     width: 100%;
     display: flex;
@@ -516,16 +527,19 @@ body {
     margin-bottom: 0;
 }
 
+
 .project-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
 }
 
+
 .project-grid .experience-card {
     position: relative;
     padding-top: 35px;
 }
+
 
 .project-grid .file-tab {
     position: absolute;
