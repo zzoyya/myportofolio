@@ -4,7 +4,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from main.forms import ProjectForm
-from main.models import Experience, Project
+from main.models import Experience, Project, Education
+from main.forms import EducationForm
+
 
 def show_main(request):
     context = {
@@ -84,3 +86,84 @@ def delete_project(request, project_id):
         return redirect("main:show_projects")
 
     return redirect("main:show_projects")
+
+def show_education(request):
+    context = {
+        "name": "Aqila Zoya Yuwono",
+        "name2": "Zoya",
+        "education_list": Education.objects.all().order_by("-started_at"),
+    }
+
+    return render(request, "education.html", context)
+
+
+def create_education(request):
+    if request.method == "POST":
+        form = EducationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                "Education berhasil ditambahkan."
+            )
+            return redirect("main:show_education")
+    else:
+        form = EducationForm()
+
+    context = {
+        "name": "Aqila Zoya Yuwono",
+        "name2": "Zoya",
+        "form": form,
+        "page_title": "Add Education",
+    }
+
+    return render(request, "education_form.html", context)
+
+
+def edit_education(request, education_id):
+    education = get_object_or_404(
+        Education,
+        id=education_id
+    )
+
+    if request.method == "POST":
+        form = EducationForm(
+            request.POST,
+            instance=education
+        )
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                "Education berhasil diperbarui."
+            )
+            return redirect("main:show_education")
+    else:
+        form = EducationForm(instance=education)
+
+    context = {
+        "name": "Aqila Zoya Yuwono",
+        "name2": "Zoya",
+        "form": form,
+        "page_title": "Edit Education",
+    }
+
+    return render(request, "education_form.html", context)
+
+
+def delete_education(request, education_id):
+    education = get_object_or_404(
+        Education,
+        id=education_id
+    )
+
+    if request.method == "POST":
+        education.delete()
+        messages.success(
+            request,
+            "Education berhasil dihapus."
+        )
+
+    return redirect("main:show_education")

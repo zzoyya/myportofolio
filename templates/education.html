@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <title>Education - {{ name }}</title>
+{% endblock meta %}
+
+{% block content %}
+
+<main>
+    <section class="experience-section" id="education">
+        <div class="container">
+
+            <p class="section-kicker">Latar belakang pendidikan</p>
+
+            <div class="project-header">
+                <h1>Education</h1>
+
+                <a href="{% url 'main:create_education' %}"
+                   class="button project-add-button">
+                    <span aria-hidden="true">+</span>
+                    Tambah Education
+                </a>
+            </div>
+
+            <div class="experience-grid project-grid">
+
+                {% for education in education_list %}
+
+                    <article class="experience-card">
+
+                        <div class="file-tab">
+                            Education
+                        </div>
+
+                        <div class="file-content">
+
+                            <h2>{{ education.institution }}</h2>
+
+                            <p class="experience-description">
+                                {{ education.degree }}
+                            </p>
+
+                            <p class="experience-description">
+                                {{ education.description }}
+                            </p>
+
+                            <p class="experience-description">
+                                {{ education.started_at|date:"Y" }}
+                                -
+                                {% if education.ended_at %}
+                                    {{ education.ended_at|date:"Y" }}
+                                {% else %}
+                                    Sekarang
+                                {% endif %}
+                            </p>
+
+                            <div class="project-actions">
+
+                                <a href="{% url 'main:edit_education' education.id %}"
+                                   class="button education-edit-button">
+                                    Edit
+                                </a>
+
+                                {% include "components/education_delete_modal.html" with education=education %}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% empty %}
+
+                    <p>Belum ada education yang ditambahkan.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+{% endblock content %}

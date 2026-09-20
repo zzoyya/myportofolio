@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <title>{{ page_title }} - {{ name }}</title>
+{% endblock meta %}
+
+{% block content %}
+
+<main>
+    <section class="experience-section">
+        <div class="container">
+
+            <div class="project-form-container">
+
+                <p class="section-kicker">
+                    Education
+                </p>
+
+                <h1>{{ page_title }}</h1>
+
+                <form method="post" class="project-form">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.institution.id_for_label }}">
+                            Institution
+                        </label>
+
+                        {{ form.institution }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.degree.id_for_label }}">
+                            Degree
+                        </label>
+
+                        {{ form.degree }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">
+                            Description
+                        </label>
+
+                        {{ form.description }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.started_at.id_for_label }}">
+                            Start Date
+                        </label>
+
+                        {{ form.started_at }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.ended_at.id_for_label }}">
+                            End Date
+                        </label>
+
+                        {{ form.ended_at }}
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button type="submit"
+                                class="button">
+                            Simpan
+                        </button>
+
+                        <a href="{% url 'main:show_education' %}"
+                           class="button">
+                            Batal
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
