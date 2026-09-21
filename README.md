@@ -23,3 +23,14 @@ pertanyaan reflektif tugas individu 2
 3. makemigrations membuat file migrasi berdasarkan perubahan yang dilakukan pada model, sedangkan migrate menerapkan perubahan tersebut ke database. Contohnya, saat saya membuat model Project atau menambahkan field baru pada model, saya perlu menjalankan kedua perintah tersebut.
 
 Saya menggunakan bantuan AI melalui platform ChatGPT untuk membantu memahami konsep Django, seperti model, view, template, routing, migration, dan unit testing. AI juga membantu memberikan panduan saat memperbaiki error, memahami struktur kode, serta memberikan saran dalam pembuatan dan pengembangan halaman portofolio.
+
+pertanyaan reflektif tugas individu 3
+
+1. Kita menggunakan ModelForm karena form ini otomatis terhubung dengan model Django, jadi kita tidak perlu membuat semua input dan validasinya dari awal secara manual. ModelForm juga membantu memastikan data yang dimasukkan sesuai dengan aturan yang sudah dibuat di model. Sementara itu, {% csrf_token %} digunakan untuk melindungi form dari serangan CSRF (Cross-Site Request Forgery), sehingga Django bisa memastikan bahwa request benar-benar berasal dari website kita.
+
+2. JSON lebih sering digunakan dalam aplikasi web modern karena formatnya lebih sederhana, ringan, dan mudah dibaca dibandingkan XML. JSON juga lebih mudah diproses oleh JavaScript dan cocok untuk pertukaran data antara frontend dan backend, sehingga banyak digunakan dalam API.
+
+3. Saat view mengembalikan data portofolio dalam bentuk JSON, Django mengambil data dari model terlebih dahulu, kemudian data tersebut diserialize menjadi format yang bisa direpresentasikan sebagai JSON. Serialization diperlukan karena object atau query dari model Django tidak bisa langsung dikirim sebagai JSON. Setelah diserialize, data dapat dikirim melalui response dan dibaca oleh aplikasi atau frontend yang membutuhkan data tersebut.
+
+Saya menggunakan bantuan AI melalui ChatGPT untuk membantu memahami konsep dan proses pengerjaan tugas, seperti pemahaman penggunaan ModelForm dan {% csrf_token %}, konsep JSON dan XML, serta proses serialization data Django menjadi JSON.
+Selain itu, AI juga membantu dalam proses implementasi fitur pada website portofolio, seperti membuat halaman Education dengan fitur tambah, edit, dan hapus, mengatur URL, view, form, serta CSS.
