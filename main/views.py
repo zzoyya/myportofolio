@@ -77,6 +77,37 @@ def create_project(request):
     }
     return render(request, "projects_form.html", context)
 
+@login_required(login_url="/login/")
+def edit_project(request, project_id):
+    # Superuser atau user yang punya permission change_project boleh edit
+    if not (
+        request.user.is_superuser
+        or request.user.has_perm("main.change_project")
+    ):
+        raise PermissionDenied
+
+    project = get_object_or_404(Project, pk=project_id)
+
+    form = ProjectForm(
+        request.POST or None,
+        instance=project
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Project berhasil diperbarui!")
+        return redirect("main:show_projects")
+
+    context = {
+        "name": "Aqila Zoya Yuwono",
+        "name2": "Zoya",
+        "form": form,
+        "page_title": "Edit Project",
+        "project": project,
+    }
+
+    return render(request, "projects_form.html", context)
+
 def get_projects_json(request):
     title_query = request.GET.get("title", "").strip()
     projects = Project.objects.all()
@@ -110,7 +141,11 @@ def show_education(request):
     return render(request, "education.html", context)
 
 
+@login_required(login_url="/login/")
 def create_education(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     if request.method == "POST":
         form = EducationForm(request.POST)
 
@@ -134,7 +169,14 @@ def create_education(request):
     return render(request, "education_form.html", context)
 
 
+@login_required(login_url="/login/")
 def edit_education(request, education_id):
+    if not (
+        request.user.is_superuser
+        or request.user.has_perm("main.change_education")
+    ):
+        raise PermissionDenied
+
     education = get_object_or_404(
         Education,
         id=education_id
@@ -166,7 +208,11 @@ def edit_education(request, education_id):
     return render(request, "education_form.html", context)
 
 
+@login_required(login_url="/login/")
 def delete_education(request, education_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     education = get_object_or_404(
         Education,
         id=education_id
@@ -190,7 +236,7 @@ def register(request):
         return redirect("main:login")
 
     context = {
-        "name": "Zoya",
+        "name2": "Zoya",
         "form": form,
     }
     return render(request, "register.html", context)
@@ -206,7 +252,7 @@ def login_user(request):
         return response
 
     context = {
-        "name": "Zoya",
+        "name2": "Zoya",
         "form": form,
     }
     return render(request, "login.html", context)

@@ -795,24 +795,29 @@ body {
    .experience-status .button-secondary,
    .project-delete-modal__actions .button-secondary {
    
-       width: 100px;              
-       height: 30px;              
-       padding: 5px 5px;           
-   
-       background: rgba(255, 255, 255, 0.2);
+    width: 70px;
+    height: 27px;
+
+    padding: 0 15px;
+    box-sizing: border-box;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.2);
         border-radius: 16px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.3);       
-   
-       font-family: inherit;
-       font-size: 12px;            
-       font-weight: bold;          
-       text-align: center;
-   
-       box-sizing: border-box;
-       cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    color: black;
    }
 
 
@@ -901,23 +906,23 @@ html {
 .header-container {
     width: 913px;
     margin: 0 auto;
-    padding: 0 1.5rem 0 0;
-    padding-bottom: 15px;
+    padding: 0 1.5rem 15px 0;
+
     border-bottom: 1px solid var(--line);
 
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .side-nav {
     display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    position: relative;
-    top: 15px;
-    left: 35px;
-    width: 100px;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    width: auto;
+
+    transform: translate(22px, 0px);
 }
 
 .identity {
@@ -933,7 +938,7 @@ html {
     color: var(--ink);
     text-decoration: none;
     position: relative;
-    transform: translate(0, 5px);
+    transform: translate(0, 22px);
     z-index: 2;
 }
 
@@ -942,7 +947,7 @@ html {
     height: 53px;
     object-fit: cover;
     object-position: center;
-    transform: translate(-20px, 0);
+    transform: translate(-20px, 15px);
     z-index: 1;
 }
 
@@ -959,7 +964,10 @@ html {
 
 .side-nav a.active::after {
     content: "_";
-    margin-left: -3px;
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    margin-left: 0;
 }
 
 .education-edit-button {
@@ -1025,19 +1033,58 @@ html {
     cursor: pointer;
 }
 
+.project-action-button {
+    width: 60px;
+    height: 27px;
+
+    padding: 0 15px;
+    box-sizing: border-box;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+}
+
+.project-action-button:hover {
+    opacity: 0.85;
+}
+
 .star-form {
     display: inline;
+    margin: 0;
 }
 
 .button-star {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    justify-content: center;
+    gap: 6px;
+
+    min-width: 97px;
+    padding: 0.8rem 1.5rem;
+
+    box-sizing: border-box;
     background: var(--ink);
+    color: white;
 }
 
 .button-star.is-starred {
-    background: var(--accent);
+    background: var(--ink);
+    color: white;
 }
 
 .star-count {

@@ -15,11 +15,13 @@
             <div class="project-header">
                 <h1>Education</h1>
 
-                <a href="{% url 'main:create_education' %}"
-                   class="button project-add-button">
-                    <span aria-hidden="true">+</span>
-                    Tambah Education
-                </a>
+                {% if user.is_superuser %}
+                    <a href="{% url 'main:create_education' %}"
+                       class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Tambah Education
+                    </a>
+                {% endif %}
             </div>
 
             <div class="experience-grid project-grid">
@@ -56,12 +58,16 @@
 
                             <div class="project-actions">
 
-                                <a href="{% url 'main:edit_education' education.id %}"
-                                   class="button education-edit-button">
-                                    Edit
-                                </a>
+                                {% if user.is_superuser or perms.main.change_education %}
+                                    <a href="{% url 'main:edit_education' education.id %}"
+                                       class="button education-edit-button">
+                                        Edit
+                                    </a>
+                                {% endif %}
 
-                                {% include "components/education_delete_modal.html" with education=education %}
+                                {% if user.is_superuser %}
+                                    {% include "components/education_delete_modal.html" with education=education %}
+                                {% endif %}
 
                             </div>
 
