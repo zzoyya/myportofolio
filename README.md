@@ -34,3 +34,9 @@ pertanyaan reflektif tugas individu 3
 
 Saya menggunakan bantuan AI melalui ChatGPT untuk membantu memahami konsep dan proses pengerjaan tugas, seperti pemahaman penggunaan ModelForm dan {% csrf_token %}, konsep JSON dan XML, serta proses serialization data Django menjadi JSON.
 Selain itu, AI juga membantu dalam proses implementasi fitur pada website portofolio, seperti membuat halaman Education dengan fitur tambah, edit, dan hapus, mengatur URL, view, form, serta CSS.
+
+AI disclosure tugas individu 4
+
+Dalam pengerjaan tugas ini, saya menggunakan AI sebagai alat bantu untuk memahami materi Tutorial 4, terutama mengenai autentikasi dan otorisasi pada Django. AI membantu saya memahami penggunaan register, login, logout, @login_required, PermissionDenied, is_superuser, session, cookie, dan CSRF token. AI juga membantu saya memahami cara membuat role Editor menggunakan Group dan Permission, sehingga pengguna biasa, Editor, dan pemilik portofolio memiliki hak akses yang berbeda. Selain itu, AI membantu menjelaskan implementasi fitur Star menggunakan ManyToManyField yang menghubungkan User dengan Project, termasuk proses memberikan dan membatalkan Star.
+
+AI juga saya gunakan untuk membantu mencari dan memperbaiki error selama pengerjaan, seperti masalah URL, permission, dan tampilan tombol pada halaman Project dan Education. AI memberikan penjelasan dan contoh kode yang kemudian saya sesuaikan dengan struktur proyek saya sendiri. Untuk fitur yang diterapkan, saya tetap menjalankan dan mengecek hasilnya sendiri, termasuk menguji login dengan beberapa role, memastikan Editor dapat mengedit tetapi tidak dapat menambah atau menghapus data, serta memastikan superuser memiliki akses penuh sesuai ketentuan tugas.
