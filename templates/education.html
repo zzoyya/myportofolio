@@ -16,75 +16,640 @@
                 <h1>Education</h1>
 
                 {% if user.is_superuser %}
-                    <a href="{% url 'main:create_education' %}"
-                       class="button project-add-button">
-                        <span aria-hidden="true">+</span>
-                        Tambah Education
-                    </a>
+                <button
+                    type="button"
+                    class="button project-add-button"
+                    popovertarget="add-education-modal">
+                    <span aria-hidden="true">+</span>
+                    Tambah Education
+                </button>
                 {% endif %}
             </div>
 
-            <div class="experience-grid project-grid">
+            <!-- Search -->
+            <form id="education-search-form" class="project-search">
+                <input
+                    type="search"
+                    id="educationSearch"
+                    name="institution"
+                    placeholder="Cari berdasarkan nama institusi"
+                    class="project-search__input"
+                    aria-label="Cari berdasarkan nama institusi"
+                >
+            
+                <button
+                    type="submit"
+                    class="button">
+                    Cari
+                </button>
+            </form>
 
-                {% for education in education_list %}
-
-                    <article class="experience-card">
-
-                        <div class="file-tab">
-                            Education
-                        </div>
-
-                        <div class="file-content">
-
-                            <h2>{{ education.institution }}</h2>
-
-                            <p class="experience-description">
-                                {{ education.degree }}
-                            </p>
-
-                            <p class="experience-description">
-                                {{ education.description }}
-                            </p>
-
-                            <p class="experience-description">
-                                {{ education.started_at|date:"Y" }}
-                                -
-                                {% if education.ended_at %}
-                                    {{ education.ended_at|date:"Y" }}
-                                {% else %}
-                                    Sekarang
-                                {% endif %}
-                            </p>
-
-                            <div class="project-actions">
-
-                                {% if user.is_superuser or perms.main.change_education %}
-                                    <a href="{% url 'main:edit_education' education.id %}"
-                                       class="button education-edit-button">
-                                        Edit
-                                    </a>
-                                {% endif %}
-
-                                {% if user.is_superuser %}
-                                    {% include "components/education_delete_modal.html" with education=education %}
-                                {% endif %}
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-                {% empty %}
-
-                    <p>Belum ada education yang ditambahkan.</p>
-
-                {% endfor %}
-
+            <!-- Education list -->
+            <div
+                class="experience-grid project-grid"
+                id="educationList">
             </div>
 
         </div>
     </section>
 </main>
+
+
+{% if user.is_superuser %}
+
+<div
+    id="add-education-modal"
+    class="project-form-modal"
+    popover
+>
+    <button
+        type="button"
+        class="project-form-modal__backdrop"
+        popovertarget="add-education-modal"
+        popovertargetaction="hide"
+        aria-label="Tutup modal">
+    </button>
+
+    <div class="project-form-modal__content">
+
+        <button
+            type="button"
+            class="project-form-modal__close"
+            popovertarget="add-education-modal"
+            popovertargetaction="hide"
+            aria-label="Tutup">
+            &times;
+        </button>
+
+        <h2>Tambah Education Baru</h2>
+
+        <form
+            id="education-form"
+            method="POST"
+            class="project-form"
+        >
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% for error in field.errors %}
+                        <p class="form-error">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+            <div class="project-form-modal__actions">
+
+                <button
+                    type="button"
+                    class="button button-secondary"
+                    popovertarget="add-education-modal"
+                    popovertargetaction="hide">
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="button">
+                    Tambah Education
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endif %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const educationList = document.getElementById("educationList");
+    const searchInput = document.getElementById("educationSearch");
+
+    const educationApiUrl =
+        "{% url 'main:get_education_json' %}";
+
+    const createEducationUrl =
+        "{% url 'main:create_education_ajax' %}";
+
+
+    /*
+     * XSS PROTECTION
+     */
+
+    function escapeHtml(value) {
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /*
+     * FORMAT DATE
+     */
+
+    function formatYear(dateString) {
+        if (!dateString) {
+            return "Sekarang";
+        }
+
+        const date = new Date(dateString);
+
+        if (isNaN(date.getTime())) {
+            return "";
+        }
+
+        return date.getFullYear();
+    }
+
+
+    /*
+     * LOAD EDUCATION
+     */
+
+    async function loadEducation(query = "") {
+
+        try {
+
+            const url =
+                `${educationApiUrl}?institution=${encodeURIComponent(query)}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("Gagal mengambil data education.");
+            }
+
+            const educationData = await response.json();
+
+            renderEducation(educationData);
+
+        } catch (error) {
+
+            console.error(error);
+
+            educationList.innerHTML = `
+                <p>Gagal memuat data education.</p>
+            `;
+        }
+    }
+
+
+    /*
+     * RENDER EDUCATION
+     */
+
+    function renderEducation(educations) {
+
+        educationList.innerHTML = "";
+
+        if (educations.length === 0) {
+
+            educationList.innerHTML = `
+                <p>Belum ada education yang ditambahkan.</p>
+            `;
+
+            return;
+        }
+
+        educations.forEach(function (education) {
+
+            const fields = education.fields;
+
+            const pk = escapeHtml(education.pk);
+            const institution = escapeHtml(fields.institution);
+            const degree = escapeHtml(fields.degree);
+            const description = escapeHtml(fields.description);
+
+            const startedAt =
+                escapeHtml(formatYear(fields.started_at));
+
+            const endedAt =
+                escapeHtml(formatYear(fields.ended_at));
+
+            const starCount =
+                escapeHtml(fields.star_count);
+
+            const starredByNames =
+                escapeHtml(fields.starred_by_names);
+
+
+            let starButton = "";
+
+            {% if user.is_authenticated %}
+
+                const starText =
+                    fields.is_starred ? "Unstar" : "Star";
+
+                    starButton = `
+                        <button
+                            type="button"
+                            class="project-action-button button-star education-star-button${fields.is_starred ? " is-starred" : ""}"
+                            data-id="${pk}"
+                            data-starred="${fields.is_starred}">
+
+                            <span aria-hidden="true">★</span>
+
+                            ${escapeHtml(starText)}
+
+                            <span class="star-count">
+                                ${escapeHtml(starCount)}
+                            </span>
+
+                        </button>
+                    `;
+
+            {% endif %}
+
+
+            let editButton = "";
+
+            {% if user.is_superuser or perms.main.change_education %}
+
+                const editUrl =
+                    "{% url 'main:edit_education' '00000000-0000-0000-0000-000000000000' %}"
+                    .replace(
+                        "00000000-0000-0000-0000-000000000000",
+                        education.pk
+                    );
+
+                    editButton = `
+                        <a
+                            href="${escapeHtml(editUrl)}"
+                            class="project-action-button">
+                            Edit
+                        </a>
+                    `;
+
+            {% endif %}
+
+
+            let deleteButton = "";
+
+            {% if user.is_superuser %}
+
+                const deleteUrl =
+                    "{% url 'main:delete_education' '00000000-0000-0000-0000-000000000000' %}"
+                    .replace(
+                        "00000000-0000-0000-0000-000000000000",
+                        education.pk
+                    );
+
+                    deleteButton = `
+                        <form
+                            method="POST"
+                            action="${escapeHtml(deleteUrl)}"
+                            style="display: inline;">
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="project-action-button"
+                                onclick="return confirm('Yakin ingin menghapus education ini?');">
+                                Hapus
+                            </button>
+
+                        </form>
+                    `;
+
+            {% endif %}
+
+
+            educationList.innerHTML += `
+
+                <article class="experience-card">
+
+                    <div class="file-tab">
+                        Education
+                    </div>
+
+                    <div class="file-content">
+
+                        <h2>${institution}</h2>
+
+                        <p class="experience-description">
+                            ${degree}
+                        </p>
+
+                        <p class="experience-description">
+                            ${description}
+                        </p>
+
+                        <p class="experience-description">
+                            ${startedAt}
+                            -
+                            ${endedAt}
+                        </p>
+
+                        <p class="experience-description">
+                            Starred by:
+                            ${starredByNames || "Belum ada"}
+                        </p>
+
+                        <div class="project-actions">
+
+                            ${starButton}
+
+                            ${editButton}
+
+                            ${deleteButton}
+
+                        </div>
+
+                    </div>
+
+                </article>
+            `;
+        });
+
+
+        attachStarListeners();
+    }
+
+
+    /*
+     * STAR / UNSTAR
+     */
+
+    function attachStarListeners() {
+
+        const buttons =
+            document.querySelectorAll(".education-star-button");
+
+        buttons.forEach(function (button) {
+
+            button.addEventListener("click", async function () {
+
+                const educationId =
+                    button.dataset.id;
+
+                const starUrl =
+                    "{% url 'main:toggle_education_star' '00000000-0000-0000-0000-000000000000' %}"
+                    .replace(
+                        "00000000-0000-0000-0000-000000000000",
+                        educationId
+                    );
+
+                try {
+
+                    const response = await fetch(
+                        starUrl,
+                        {
+                            method: "POST",
+                            headers: {
+                                "X-CSRFToken":
+                                    getCookie("csrftoken")
+                            }
+                        }
+                    );
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.message ||
+                            "Gagal mengubah star."
+                        );
+                    }
+
+                    loadEducation(searchInput.value);
+
+                    if (typeof showToast === "function") {
+                        showToast(data.message);
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    if (typeof showToast === "function") {
+                        showToast(
+                            error.message ||
+                            "Terjadi kesalahan."
+                        );
+                    }
+                }
+            });
+        });
+    }
+
+
+    /*
+     * CSRF COOKIE
+     */
+
+    function getCookie(name) {
+
+        const cookies =
+            document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                return decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+            }
+        }
+
+        return null;
+    }
+
+
+    /*
+     * SEARCH DEBOUNCE
+     */
+
+    let searchTimeout;
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            clearTimeout(searchTimeout);
+
+            searchTimeout = setTimeout(
+                function () {
+                    loadEducation(
+                        searchInput.value.trim()
+                    );
+                },
+                300
+            );
+        }
+    );
+
+    const educationSearchForm =
+    document.getElementById("education-search-form");
+
+    educationSearchForm.addEventListener(
+        "submit",
+        function (event) {
+            event.preventDefault();
+
+            clearTimeout(searchTimeout);
+
+            loadEducation(
+                searchInput.value.trim()
+            );
+        }
+    );
+
+    /*
+     * ADD EDUCATION MODAL
+     */
+
+     {% if user.is_superuser %}
+
+const educationForm =
+    document.getElementById("education-form");
+
+educationForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        const formData =
+            new FormData(educationForm);
+
+        try {
+
+            const response =
+                await fetch(
+                    createEducationUrl,
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (response.status === 201) {
+
+                if (typeof showToast === "function") {
+                    showToast(data.message);
+                }
+
+                educationForm.reset();
+
+                document
+                    .getElementById("add-education-modal")
+                    .hidePopover();
+
+                loadEducation(
+                    searchInput.value
+                );
+
+                return;
+            }
+
+            if (response.status === 400) {
+
+                const errors = data.errors;
+
+                let errorMessage =
+                    "Data education tidak valid.";
+
+                if (errors) {
+
+                    const messages = [];
+
+                    Object.keys(errors)
+                        .forEach(function (field) {
+
+                            errors[field]
+                                .forEach(function (error) {
+
+                                    messages.push(
+                                        error.message
+                                    );
+
+                                });
+
+                        });
+
+                    if (messages.length > 0) {
+                        errorMessage =
+                            messages.join(" ");
+                    }
+                }
+
+                if (typeof showToast === "function") {
+                    showToast(errorMessage);
+                }
+
+                return;
+            }
+
+            if (response.status === 403) {
+
+                if (typeof showToast === "function") {
+                    showToast(
+                        data.message ||
+                        "Kamu tidak memiliki izin."
+                    );
+                }
+
+                return;
+            }
+
+            throw new Error(
+                "Terjadi kesalahan pada server."
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            if (typeof showToast === "function") {
+                showToast(
+                    error.message ||
+                    "Gagal menambahkan education."
+                );
+            }
+        }
+    }
+);
+
+{% endif %}
+
+
+    /*
+     * INITIAL LOAD
+     */
+
+    loadEducation();
+
+});
+</script>
 
 {% endblock content %}

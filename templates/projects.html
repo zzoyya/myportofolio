@@ -19,7 +19,7 @@
                     {% endif %}
                 </div>
 
-                <button class="button button-secondary" onclick="showToast('Notifikasi Sistem', 'Project berhasil dimuat dengan baik!', 'success')">
+                <button class="button toast-test-button" onclick="showToast('Notifikasi Sistem', 'Project berhasil dimuat dengan baik!', 'success')">
                     Test Toast Notifikasi
                 </button>
                 
@@ -94,68 +94,176 @@
 
         // Membuat elemen card project
         function buildProjectCardElement(item) {
-            const project = item.fields;
-            const projectId = item.pk;
-    
-            const articleElement = document.createElement('article');
-            articleElement.className = 'experience-card';
-    
-            const imageHtml = project.project_image_url
-                ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${escapeHtml(project.title)}" class="project-image">`
-                : '';
+        const project = item.fields;
+        const projectId = item.pk;
 
-            const urlHtml = project.project_url
-                ? `<a href="${escapeHtml(project.project_url)}" class="button">Lihat Project</a>`
-                : '';
-    
-            // Dummy UUID digunakan untuk digantikan oleh ID asli dari data JSON
-            const deleteUrl = "{% url 'main:delete_project' 999999999 %}"
-                .replace('999999999', projectId);
-            const starUrl = "{% url 'main:toggle_star' 999999999 %}"
-                .replace('999999999', projectId);
-    
-            const deleteHtml = IS_SUPERUSER 
-                ? `<form method="post" action="${deleteUrl}" style="display:inline;">
+        const articleElement = document.createElement('article');
+        articleElement.className = 'experience-card';
+
+        const imageHtml = project.project_image_url
+            ? `
+                <img
+                    src="${escapeHtml(project.project_image_url)}"
+                    alt="Gambar ${escapeHtml(project.title)}"
+                    class="project-image"
+                >
+            `
+            : '';
+
+        const urlHtml = project.project_url
+            ? `
+                <a
+                    href="${escapeHtml(project.project_url)}"
+                    class="project-action-button"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Lihat Project
+                </a>
+            `
+            : '';
+
+        // URL menggunakan ID integer sesuai URL pattern Django
+        const editUrl = "{% url 'main:edit_project' 999999999 %}"
+            .replace('999999999', projectId);
+
+        const deleteUrl = "{% url 'main:delete_project' 999999999 %}"
+            .replace('999999999', projectId);
+
+        const starUrl = "{% url 'main:toggle_star' 999999999 %}"
+            .replace('999999999', projectId);
+
+        /*
+        * Tombol Edit:
+        * Superuser atau user yang mempunyai permission change_project
+        */
+        const editHtml = (
+            {% if user.is_superuser or perms.main.change_project %}
+                true
+            {% else %}
+                false
+            {% endif %}
+        )
+            ? `
+                <a
+                    href="${escapeHtml(editUrl)}"
+                    class="project-action-button">
+                    Edit
+                </a>
+            `
+            : '';
+
+        /*
+        * Tombol Delete:
+        * Hanya superuser
+        */
+        const deleteHtml = (
+            {% if user.is_superuser %}
+                true
+            {% else %}
+                false
+            {% endif %}
+        )
+            ? `
+                <form
+                    method="post"
+                    action="${escapeHtml(deleteUrl)}"
+                    style="display: inline;">
+
                     {% csrf_token %}
-                    <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus project ini?');">Hapus</button>
-                </form>`
-                : '';
-    
-            const isStarredClass = project.is_starred ? " is-starred" : "";
-            const starText = project.is_starred ? "Unstar" : "Star";
-            const starTitle = project.star_count > 0
+
+                    <button
+                        type="submit"
+                        class="project-action-button"
+                        onclick="return confirm('Yakin ingin menghapus project ini?');">
+                        Hapus
+                    </button>
+
+                </form>
+            `
+            : '';
+
+        const isStarredClass =
+            project.is_starred ? " is-starred" : "";
+
+        const starText =
+            project.is_starred ? "Unstar" : "Star";
+
+        const starTitle =
+            project.star_count > 0
                 ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
                 : "Jadilah yang pertama memberi star";
-    
-            // Komponen card
-            const completeCardHtml = `
+
+        /*
+        * Card
+        */
+        const completeCardHtml = `
+            <div class="file-tab">
+                Projects
+            </div>
+
+            <div class="file-content">
+
                 ${imageHtml}
-                <h2>${escapeHtml(project.title)}</h2>
-                <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
-                <p class="experience-description">${escapeHtml(project.description)}</p>
+
+                <h2>
+                    ${escapeHtml(project.title)}
+                </h2>
+
+                <span class="experience-category">
+                    ${escapeHtml(project.tech_stack)}
+                </span>
+
+                <p class="experience-description">
+                    ${escapeHtml(project.description)}
+                </p>
+
                 <div class="project-card-actions">
+
                     <div class="project-actions">
+
                         ${urlHtml}
-                        
-                        <form method="post" action="${starUrl}" class="star-form">
-                            {% csrf_token %}
-                            <button type="submit" 
-                                    class="button button-star${isStarredClass}"
+
+                        {% if user.is_authenticated %}
+                            <form
+                                method="post"
+                                action="${escapeHtml(starUrl)}"
+                                class="star-form">
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="project-action-button button-star${isStarredClass}"
                                     title="${starTitle}">
-                                <span aria-hidden="true">★</span>
-                                ${starText}
-                                <span class="star-count">${project.star_count}</span>
-                            </button>
-                        </form>
-    
+
+                                    <span aria-hidden="true">★</span>
+
+                                    ${escapeHtml(starText)}
+
+                                    <span class="star-count">
+                                        ${escapeHtml(project.star_count)}
+                                    </span>
+
+                                </button>
+
+                            </form>
+                        {% endif %}
+
+                        ${editHtml}
+
                         ${deleteHtml}
+
                     </div>
+
                 </div>
-            `;
-    
-            articleElement.innerHTML = completeCardHtml;
-            return articleElement;
-        }
+
+            </div>
+        `;
+
+        articleElement.innerHTML = completeCardHtml;
+
+        return articleElement;
+    }
     
         // Fetch data project
         async function fetchProjects(searchQuery = "") {
