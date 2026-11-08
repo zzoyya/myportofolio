@@ -4,9 +4,11 @@ NPM : 2506620293
 
 Kelas : PBP D 
 
-pertanyaan reflektif tugas individu 1
+---
 
-1. Saya menggunakan beberapa elemen semantik seperti <header>, <main>, <section>, dan <footer>. Elemen-elemen ini membantu saya membagi website menjadi bagian-bagian yang lebih jelas. Misalnya, <header> untuk bagian atas dan navigasi, <main> untuk isi utama, dan <footer> untuk bagian bawah website.
+### pertanyaan reflektif tugas individu 1
+
+1. Saya menggunakan beberapa elemen semantik seperti <u>header</u>, <u>main</u>, <u>section</u>, dan <u>footer</u>. Elemen-elemen ini membantu saya membagi website menjadi bagian-bagian yang lebih jelas. Misalnya, header untuk bagian atas dan navigasi, main untuk isi utama, dan footer untuk bagian bawah website.
 
 2. Tantangan yang saya temukan adalah mengatur tata letak grid agar tetap rapi di berbagai ukuran layar. Tampilan yang terlihat bagus di desktop belum tentu terlihat sama di layar mobile. Karena itu, saya perlu mempertimbangkan ukuran gambar, teks, dan posisi setiap elemen agar informasi penting tetap mudah dilihat.
 
@@ -14,7 +16,9 @@ pertanyaan reflektif tugas individu 1
 
 Dalam proses pembuatan website, saya menggunakan bantuan AI untuk membantu memahami cara membuat tampilan grid sesuai dengan desain yang saya inginkan, terutama dalam mengatur posisi gambar dan teks, serta cara untuk menambahkan font untuk memperbagus website. Saya juga menggunakan AI untuk membantu memahami cara menautkan link atau dokumen agar ketika diklik dapat mengarah ke halaman atau dokumen tujuan.
 
-pertanyaan reflektif tugas individu 2
+---
+
+### pertanyaan reflektif tugas individu 2
 
 1. Ketika pengguna membuka halaman portofolio, urls.py proyek menerima URL lalu meneruskannya ke urls.py aplikasi main. Selanjutnya, view mengambil data dari model, memasukkannya ke context, lalu mengirimkannya ke template untuk ditampilkan sebagai halaman HTML di browser.
 
@@ -24,7 +28,9 @@ pertanyaan reflektif tugas individu 2
 
 Saya menggunakan bantuan AI melalui platform ChatGPT untuk membantu memahami konsep Django, seperti model, view, template, routing, migration, dan unit testing. AI juga membantu memberikan panduan saat memperbaiki error, memahami struktur kode, serta memberikan saran dalam pembuatan dan pengembangan halaman portofolio.
 
-pertanyaan reflektif tugas individu 3
+---
+
+### pertanyaan reflektif tugas individu 3
 
 1. Kita menggunakan ModelForm karena form ini otomatis terhubung dengan model Django, jadi kita tidak perlu membuat semua input dan validasinya dari awal secara manual. ModelForm juga membantu memastikan data yang dimasukkan sesuai dengan aturan yang sudah dibuat di model. Sementara itu, {% csrf_token %} digunakan untuk melindungi form dari serangan CSRF (Cross-Site Request Forgery), sehingga Django bisa memastikan bahwa request benar-benar berasal dari website kita.
 
@@ -35,13 +41,17 @@ pertanyaan reflektif tugas individu 3
 Saya menggunakan bantuan AI melalui ChatGPT untuk membantu memahami konsep dan proses pengerjaan tugas, seperti pemahaman penggunaan ModelForm dan {% csrf_token %}, konsep JSON dan XML, serta proses serialization data Django menjadi JSON.
 Selain itu, AI juga membantu dalam proses implementasi fitur pada website portofolio, seperti membuat halaman Education dengan fitur tambah, edit, dan hapus, mengatur URL, view, form, serta CSS.
 
-AI disclosure tugas individu 4
+---
+
+### AI disclosure tugas individu 4
 
 Dalam pengerjaan tugas ini, saya menggunakan AI sebagai alat bantu untuk memahami materi Tutorial 4, terutama mengenai autentikasi dan otorisasi pada Django. AI membantu saya memahami penggunaan register, login, logout, @login_required, PermissionDenied, is_superuser, session, cookie, dan CSRF token. AI juga membantu saya memahami cara membuat role Editor menggunakan Group dan Permission, sehingga pengguna biasa, Editor, dan pemilik portofolio memiliki hak akses yang berbeda. Selain itu, AI membantu menjelaskan implementasi fitur Star menggunakan ManyToManyField yang menghubungkan User dengan Project, termasuk proses memberikan dan membatalkan Star.
 
 AI juga saya gunakan untuk membantu mencari dan memperbaiki error selama pengerjaan, seperti masalah URL, permission, dan tampilan tombol pada halaman Project dan Education. AI memberikan penjelasan dan contoh kode yang kemudian saya sesuaikan dengan struktur proyek saya sendiri. Untuk fitur yang diterapkan, saya tetap menjalankan dan mengecek hasilnya sendiri, termasuk menguji login dengan beberapa role, memastikan Editor dapat mengedit tetapi tidak dapat menambah atau menghapus data, serta memastikan superuser memiliki akses penuh sesuai ketentuan tugas.
 
-pertanyaan reflektif tugas individu 5
+---
+
+### pertanyaan reflektif tugas individu 5
 
 1. Debouncing adalah teknik untuk menunda pengiriman request sampai pengguna berhenti mengetik selama waktu tertentu. Teknik ini penting pada pencarian AJAX supaya tidak mengirim request ke server setiap kali satu karakter diketik, sehingga request lebih sedikit dan aplikasi lebih efisien.
 
@@ -50,3 +60,17 @@ pertanyaan reflektif tugas individu 5
 3. XSS (Cross-Site Scripting) adalah serangan dengan memasukkan kode atau script berbahaya ke dalam data yang kemudian ditampilkan di halaman. Data dari AJAX lebih perlu diperhatikan karena biasanya dimasukkan ke HTML menggunakan JavaScript, misalnya innerHTML, sehingga script bisa ikut dijalankan jika data tidak di-escape. Sementara pada template Django, data biasanya sudah di escape secara otomatis ketika ditampilkan menggunakan {{ }}.
 
 Dalam pengerjaan tugas ini, AI digunakan sebagai alat bantu untuk memahami dan mengimplementasikan konsep AJAX, JSON, Fetch API, debouncing pada fitur search, modal untuk penambahan data, toast notification, validasi form, permission, serta pencegahan XSS. AI juga membantu memberikan penjelasan mengenai cara kerja async/await, proses request dan response AJAX, serta membantu mengecek dan memperbaiki error pada kode berdasarkan kebutuhan tugas. Implementasi dan penyesuaian kode tetap dilakukan dan diuji secara langsung pada project, termasuk pengujian fitur search, tambah data, star, validasi, permission, dan XSS, sehingga AI berperan sebagai pendamping dalam proses pengerjaan dan pemahaman materi.
+
+---
+
+### pertanyaan reflektif tugas individu 6
+
+1. REST (Representational State Transfer) adalah gaya arsitektur untuk membuat API agar komunikasi antara client dan server memiliki aturan yang jelas, misalnya menggunakan URL untuk mewakili resource dan HTTP method seperti GET, POST, PUT, PATCH, dan DELETE sesuai fungsinya. API yang mengembalikan JSON saja belum tentu RESTful karena JSON hanya format data, sedangkan REST juga mengatur cara resource diakses dan bagaimana operasi dilakukan. PUT digunakan untuk memperbarui seluruh data pada suatu resource, sedangkan PATCH digunakan untuk memperbarui sebagian data saja. Contohnya, PUT digunakan ketika semua informasi Education ingin diganti, sementara PATCH digunakan ketika hanya ingin mengubah bagian degree tanpa mengubah informasi lainnya.
+
+2. Serializer berfungsi untuk mengubah data dari model Django menjadi format yang bisa dikirim melalui API, seperti JSON, serta memvalidasi data yang diterima dari pengguna sebelum disimpan ke database. Dibandingkan membuat dictionary secara manual menggunakan JsonResponse, serializer lebih praktis karena proses pengubahan data, validasi, dan penentuan field dapat diatur dalam satu tempat. Serializer juga membantu menentukan informasi apa saja yang boleh ditampilkan melalui API, sehingga data yang tidak diperlukan atau bersifat sensitif tidak ikut dikirim.
+
+3. Autentikasi adalah proses untuk memastikan siapa pengguna yang sedang mengakses aplikasi, misalnya melalui proses login. Sementara itu, otorisasi adalah proses menentukan tindakan apa saja yang boleh dilakukan oleh pengguna tersebut berdasarkan hak aksesnya. Dalam Django REST Framework, autentikasi dapat dilakukan melalui SessionAuthentication, sedangkan otorisasi dapat diatur menggunakan permission class. Hak akses harus diperiksa di server karena menyembunyikan tombol melalui template saja tidak cukup aman. Pengguna masih bisa mengirim request langsung ke endpoint API meskipun tombolnya tidak ditampilkan. Dengan permission class, server tetap memeriksa izin pengguna sebelum menjalankan suatu operasi.
+
+4. Token CSRF tetap diperlukan ketika API menggunakan SessionAuthentication karena browser secara otomatis mengirimkan cookie session saat pengguna mengakses aplikasi. Hal ini dapat dimanfaatkan oleh pihak lain untuk mengirim permintaan tanpa sepengetahuan pengguna, sehingga token CSRF digunakan untuk memastikan bahwa permintaan yang mengubah data memang berasal dari aplikasi yang seharusnya. Sementara itu, force_authenticate tidak cukup untuk membuktikan perlindungan CSRF berjalan karena metode tersebut melewati proses autentikasi normal dan pemeriksaan CSRF pada session. Oleh karena itu, pengujian CSRF perlu menggunakan APIClient(enforce_csrf_checks=True) dan .login() agar perilakunya lebih mendekati proses autentikasi pengguna yang sebenarnya.
+
+Dalam pengerjaan tugas ini, saya menggunakan bantuan AI sebagai alat bantu untuk memahami materi Django REST Framework, menjelaskan konsep REST API, serializer, autentikasi, otorisasi, dan CSRF, serta membantu memberikan saran dalam implementasi kode. Bantuan AI juga digunakan untuk memeriksa dan memperbaiki API views, permission class, integrasi frontend menggunakan Fetch API, dan penyusunan test untuk berbagai jenis pengguna. Selain itu, AI membantu mengidentifikasi kemungkinan kesalahan berdasarkan kode dan hasil pengujian yang saya berikan.

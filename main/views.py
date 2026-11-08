@@ -241,27 +241,14 @@ def edit_education(request, education_id):
         id=education_id
     )
 
-    if request.method == "POST":
-        form = EducationForm(
-            request.POST,
-            instance=education
-        )
-
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request,
-                "Education berhasil diperbarui."
-            )
-            return redirect("main:show_education")
-    else:
-        form = EducationForm(instance=education)
+    form = EducationForm(instance=education)
 
     context = {
         "name": "Aqila Zoya Yuwono",
         "name2": "Zoya",
         "form": form,
         "page_title": "Edit Education",
+        "education": education,
     }
 
     return render(request, "education_form.html", context)

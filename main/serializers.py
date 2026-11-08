@@ -43,7 +43,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     def get_starred_by_names(self, obj):
         return ", ".join(user.username for user in obj.starred_by.all())
     
+
 class EducationSerializer(serializers.ModelSerializer):
+    star_count = serializers.SerializerMethodField()
+    is_starred = serializers.SerializerMethodField()
+
     class Meta:
         model = Education
         fields = [
@@ -53,5 +57,39 @@ class EducationSerializer(serializers.ModelSerializer):
             "description",
             "started_at",
             "ended_at",
+            "star_count",
+            "is_starred",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = [
+            "id",
+            "star_count",
+            "is_starred",
+        ]
+
+    def validate_institution(self, value):
+        value = strip_tags(value).strip()
+        if not value:
+            raise serializers.ValidationError(
+                "Institution cannot be empty."
+            )
+        return value
+
+    def validate_degree(self, value):
+        value = strip_tags(value).strip()
+        if not value:
+            raise serializers.ValidationError(
+                "Degree cannot be empty."
+            )
+        return value
+
+    def validate_description(self, value):
+        return strip_tags(value)
+
+    def get_star_count(self, obj):
+        return obj.starred_by.count()
+
+    def get_is_starred(self, obj):
+        request = self.context.get("request")
+        if request is None or not request.user.is_authenticated:
+            return False
+        return obj.starred_by.filter(pk=request.user.pk).exists()

@@ -69,14 +69,25 @@ def project_star(request, project_id):
     return Response(serializer.data)
 
 
+
 @api_view(["GET", "HEAD", "POST"])
 @authentication_classes([SessionAuthentication])
 @permission_classes([IsPortfolioOwnerOrEditorOrReadOnly])
 def education_list(request):
     if request.method in ("GET", "HEAD"):
-        educations = Education.objects.all().order_by(
-            "started_at", "institution"
-        )
+        educations = Education.objects.prefetch_related(
+            "starred_by"
+        ).order_by("started_at", "institution")
+
+        institution = request.query_params.get(
+            "institution", ""
+        ).strip()
+
+        if institution:
+            educations = educations.filter(
+                institution__icontains=institution
+            )
+
         serializer = EducationSerializer(
             educations,
             many=True,
@@ -95,6 +106,7 @@ def education_list(request):
         serializer.data,
         status=status.HTTP_201_CREATED,
     )
+
 
 
 @api_view(["GET", "HEAD", "PUT", "PATCH", "DELETE"])

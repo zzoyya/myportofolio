@@ -155,3 +155,5 @@ MAILERS = {
 }
 
 LOGIN_REDIRECT_URL = "/api/v1/projects/"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

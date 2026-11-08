@@ -5,6 +5,7 @@
 {% endblock meta %}
 
 {% block content %}
+{% csrf_token %}
 
 <main>
     <section class="experience-section">
@@ -18,7 +19,10 @@
 
                 <h1>{{ page_title }}</h1>
 
-                <form method="post" class="project-form">
+                <form
+                    id="education-edit-form"
+                    class="project-form"
+                >
 
                     {% csrf_token %}
 
@@ -26,7 +30,6 @@
                         <label for="{{ form.institution.id_for_label }}">
                             Institution
                         </label>
-
                         {{ form.institution }}
                     </div>
 
@@ -34,7 +37,6 @@
                         <label for="{{ form.degree.id_for_label }}">
                             Degree
                         </label>
-
                         {{ form.degree }}
                     </div>
 
@@ -42,7 +44,6 @@
                         <label for="{{ form.description.id_for_label }}">
                             Description
                         </label>
-
                         {{ form.description }}
                     </div>
 
@@ -50,7 +51,6 @@
                         <label for="{{ form.started_at.id_for_label }}">
                             Start Date
                         </label>
-
                         {{ form.started_at }}
                     </div>
 
@@ -58,19 +58,27 @@
                         <label for="{{ form.ended_at.id_for_label }}">
                             End Date
                         </label>
-
                         {{ form.ended_at }}
+                    </div>
+
+                    <div
+                        id="education-edit-error"
+                        class="form-error"
+                        role="alert">
                     </div>
 
                     <div class="form-actions">
 
-                        <button type="submit"
-                                class="button">
+                        <button
+                            type="submit"
+                            class="button"
+                            id="education-save-button">
                             Simpan
                         </button>
 
-                        <a href="{% url 'main:show_education' %}"
-                           class="button">
+                        <a
+                            href="{% url 'main:show_education' %}"
+                            class="button">
                             Batal
                         </a>
 
@@ -83,5 +91,149 @@
         </div>
     </section>
 </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const educationForm = document.getElementById(
+        "education-edit-form"
+    );
+
+    const saveButton = document.getElementById(
+        "education-save-button"
+    );
+
+    const errorContainer = document.getElementById(
+        "education-edit-error"
+    );
+
+    const educationId = "{{ education.id }}";
+
+    const educationApiUrl =
+        "{% url 'api:education-list' %}" + educationId + "/";
+
+
+    /*
+     * CSRF COOKIE
+     */
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                return decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+            }
+        }
+
+        return null;
+    }
+
+
+    /*
+     * EDIT EDUCATION USING PATCH
+     */
+
+    educationForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            errorContainer.textContent = "";
+            saveButton.disabled = true;
+            saveButton.textContent = "Menyimpan...";
+
+            const formData = new FormData(educationForm);
+
+            const payload = Object.fromEntries(
+                formData.entries()
+            );
+
+            delete payload.csrfmiddlewaretoken;
+
+            // Ubah tanggal kosong menjadi null.
+            if (payload.ended_at === "") {
+                payload.ended_at = null;
+            }
+
+            try {
+
+                const response = await fetch(educationApiUrl, {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+
+                    window.location.href =
+                        "{% url 'main:show_education' %}";
+
+                    return;
+                }
+
+                if (response.status === 400) {
+
+                    const messages = Object.entries(data)
+                        .map(([field, errors]) => {
+                            return `${field}: ${
+                                Array.isArray(errors)
+                                    ? errors.join(", ")
+                                    : errors
+                            }`;
+                        })
+                        .join(" | ");
+
+                    throw new Error(
+                        messages || "Data yang dimasukkan tidak valid."
+                    );
+                }
+
+                if (response.status === 403) {
+                    throw new Error(
+                        "Kamu tidak memiliki izin untuk mengedit Education."
+                    );
+                }
+
+                if (response.status === 404) {
+                    throw new Error(
+                        "Data Education tidak ditemukan."
+                    );
+                }
+
+                throw new Error(
+                    "Terjadi kesalahan saat memperbarui Education."
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                errorContainer.textContent = error.message;
+
+            } finally {
+
+                saveButton.disabled = false;
+                saveButton.textContent = "Simpan";
+
+            }
+        }
+    );
+
+});
+</script>
 
 {% endblock content %}
